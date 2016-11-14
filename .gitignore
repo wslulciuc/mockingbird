@@ -12,6 +12,11 @@ src_managed/
 project/boot/
 project/plugins/project/
 
+.pants.d
+dist
+.pids
+.pants.workdir.file_lock
+
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
