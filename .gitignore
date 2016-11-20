@@ -20,3 +20,5 @@ dist
 # Scala-IDE specific
 .scala_dependencies
 .worksheet
+
+.DS_Store
