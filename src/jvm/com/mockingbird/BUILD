@@ -19,7 +19,7 @@ jvm_binary(
 
 scala_library(
   name = 'lib',
-  sources = globs('*.scala'),
+  sources = ['Main.scala'],
   dependencies = [
     '3rdparty/jvm/com/github/finagle:finch-core'
   ]
