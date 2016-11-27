@@ -1,16 +1,26 @@
+jvm_app(
+  name ='mockingbird',
+  basename = 'service',
+  dependencies = [
+    ':server'
+  ],
+  bundles = [
+    bundle(relative_to='config', fileset=globs('config/*'))
+  ]
+)
+
+jvm_binary(
+  name='server',
+  main='com.mockingbird.Main',
+  dependencies=[
+    ':lib'
+  ]
+)
+
 scala_library(
-  name = 'mockingbird-lib',
+  name = 'lib',
   sources = globs('*.scala'),
   dependencies = [
     '3rdparty/jvm/com/github/finagle:finch-core'
   ]
 )
-
-jvm_binary(
-  name='mockingbird-server',
-  main='com.mockingbird.Main',
-  dependencies=[
-    ':mockingbird-lib'
-  ]
-)
-

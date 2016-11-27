@@ -9,4 +9,3 @@ object Main extends App {
   val server = Http.server.serve(":8080", api.toServiceAs[Text.Plain])
   Await.ready(server)
 }
-
