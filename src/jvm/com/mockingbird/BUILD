@@ -1,12 +1,8 @@
 jvm_app(
   name ='mockingbird',
   basename = 'api',
-  dependencies = [
-    ':server'
-  ],
-  bundles = [
-    bundle(relative_to='config', fileset=globs('config/*'))
-  ]
+  deployjar=True,
+  binary = ':server'
 )
 
 jvm_binary(
