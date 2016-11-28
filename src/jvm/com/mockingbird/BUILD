@@ -1,6 +1,6 @@
 jvm_app(
   name ='mockingbird',
-  basename = 'service',
+  basename = 'api',
   dependencies = [
     ':server'
   ],
@@ -11,7 +11,7 @@ jvm_app(
 
 jvm_binary(
   name='server',
-  main='com.mockingbird.Main',
+  main='com.mockingbird.Api',
   dependencies=[
     ':lib'
   ]
@@ -19,7 +19,7 @@ jvm_binary(
 
 scala_library(
   name = 'lib',
-  sources = ['Main.scala'],
+  sources = ['Api.scala'],
   dependencies = [
     '3rdparty/jvm/com/github/finagle:finch-core'
   ]
