@@ -1,6 +1,6 @@
 jar_library(
   name='finch-core',
   jars=[
-    jar(org='com.github.finagle', name='finch-core_2.11', rev='0.13.0')
+    scala_jar(org='com.github.finagle', name='finch-core', rev='0.13.0')
   ]
 )
