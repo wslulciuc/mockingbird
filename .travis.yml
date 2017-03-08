@@ -1,0 +1,13 @@
+sudo: false
+language: python
+python:
+    - '2.7'
+before_cache:
+    - rm -fv ${HOME}/.ivy2/pants/*.{css,properties,xml,xsl}
+    - rm -rf ${HOME}/.cache/pants/stats
+cache:
+  directories:
+      - "${HOME}/.cache/pants"
+      - "${HOME}/.cache/pip"
+      - "${HOME}/.ivy2/pants"
+script: ./build-support/bin/ci.sh
