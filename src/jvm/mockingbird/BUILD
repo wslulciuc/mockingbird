@@ -5,17 +5,17 @@ jvm_app(
 )
 
 jvm_binary(
-  name = 'server',
-  main = 'mockingbird.Api',
-  dependencies = [
+  name='server',
+  main='mockingbird.Api',
+  dependencies=[
     ':lib'
   ]
 )
 
 scala_library(
-  name = 'lib',
-  sources = ['Api.scala'],
-  dependencies = [
+  name='lib',
+  sources=['Api.scala'],
+  dependencies=[
     '3rdparty/jvm:finch-core'
   ]
 )
