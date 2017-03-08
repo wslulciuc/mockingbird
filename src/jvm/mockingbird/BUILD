@@ -17,6 +17,6 @@ scala_library(
   name = 'lib',
   sources = ['Api.scala'],
   dependencies = [
-    '3rdparty/jvm/com/github/finagle:finch-core'
+    '3rdparty/jvm:finch-core'
   ]
 )
