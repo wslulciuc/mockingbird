@@ -14,8 +14,10 @@ jvm_binary(
 
 scala_library(
   name='lib',
-  sources=['Api.scala'],
+  sources=globs('*.scala'),
   dependencies=[
+    '3rdparty/jvm:avro',
+    '3rdparty/jvm:finch-circe',
     '3rdparty/jvm:finch-core'
   ]
 )
