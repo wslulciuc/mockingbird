@@ -1,14 +1,13 @@
 jvm_app(
-  name ='mockingbird',
-  basename = 'api',
+  name='api',
   deployjar=True,
-  binary = ':server'
+  binary=':server'
 )
 
 jvm_binary(
-  name='server',
-  main='com.mockingbird.Api',
-  dependencies=[
+  name = 'server',
+  main = 'mockingbird.Api',
+  dependencies = [
     ':lib'
   ]
 )

@@ -1,4 +1,4 @@
-package com.mockingbird
+package mockingbird.api
 
 import io.finch._
 import com.twitter.finagle.Http
