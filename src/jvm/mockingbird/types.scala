@@ -1,13 +1,17 @@
 package mockingbird
 
-import java.nio.charset.StandardCharsets.UTF_8
+import io.circe.{Decoder, Encoder, Json}
+import io.circe.generic.semiauto._
+import io.finch._
+import io.finch.circe._
 
-sealed abstract class EventData(val data: String, val meta: EventData.Meta) {
-  def asBytes: Array[Byte] = asString.getBytes(UTF_8)
-  def asString: String = ???
-  protected def enrich(root: Option[String] = None) = ???
+case class Request(payload: Json)
+object Request {
+  implicit val reqDecoder: Decoder[Request] = deriveDecoder[Request]
+  implicit val reqEncoder: Encoder[Request] = deriveEncoder[Request]
 }
 
-object EventData {
-  case class Meta(rcvdTimestamp: Long, device: String)
+case class Event(name: String)
+object Event {
+  object Sensor extends Event("sensor")
 }
