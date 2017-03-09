@@ -6,15 +6,23 @@ jar_library(
 )
 
 jar_library(
+  name='circe-generic',
+  jars=[
+    scala_jar(org='io.circe', name='circe-generic', rev='0.7.0')
+  ]
+)
+
+finchVersion = '0.13.0'
+jar_library(
   name='finch-core',
   jars=[
-    scala_jar(org='com.github.finagle', name='finch-core', rev='0.13.0')
+    scala_jar(org='com.github.finagle', name='finch-core', rev=finchVersion)
   ]
 )
 
 jar_library(
   name='finch-circe',
   jars=[
-    scala_jar(org='com.github.finagle', name='finch-circe', rev='0.13.0')
+    scala_jar(org='com.github.finagle', name='finch-circe', rev=finchVersion)
   ]
 )
