@@ -26,3 +26,10 @@ jar_library(
     scala_jar(org='com.github.finagle', name='finch-circe', rev=finchVersion)
   ]
 )
+
+jar_library(
+  name='shapeless',
+  jars=[
+    scala_jar(org='com.chuusai', name='shapeless', rev='2.3.2')
+  ]
+)
