@@ -17,6 +17,7 @@ scala_library(
   sources=globs('*.scala'),
   dependencies=[
     '3rdparty/jvm:avro',
+    '3rdparty/jvm:cats',
     '3rdparty/jvm:circe-generic',
     '3rdparty/jvm:finch-circe',
     '3rdparty/jvm:finch-core',

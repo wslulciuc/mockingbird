@@ -6,6 +6,13 @@ jar_library(
 )
 
 jar_library(
+  name='cats',
+  jars=[
+    scala_jar(org='org.typelevel', name='cats', rev='0.9.0')
+  ]
+)
+
+jar_library(
   name='circe-generic',
   jars=[
     scala_jar(org='io.circe', name='circe-generic', rev='0.7.0')
