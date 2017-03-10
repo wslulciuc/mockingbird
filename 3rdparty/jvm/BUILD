@@ -19,6 +19,13 @@ jar_library(
   ]
 )
 
+jar_library(
+  name='finagle-commons-stats',
+  jars=[
+    scala_jar(org='com.twitter', name='finagle-commons-stats', rev='6.42.0')
+  ]
+)
+
 finchVersion = '0.13.0'
 jar_library(
   name='finch-core',

@@ -2,7 +2,7 @@ package mockingbird
 
 import com.twitter.app.Flag
 import com.twitter.finagle.http.{Request, Response}
-import com.twitter.finagle.param
+import com.twitter.finagle.param.{Stats, Label}
 import com.twitter.finagle.stats.Counter
 import com.twitter.finagle.{Http, Service}
 import com.twitter.server.TwitterServer
@@ -16,6 +16,7 @@ import mockingbird.Payload._
 
 object Api extends TwitterServer {
   val port: Flag[Int] = flag("port", 8080, "TCP port for HTTP server")
+
   val events: Counter = statsReceiver.counter("events")
 
   val postEvent: Endpoint[String] = POST("events" :: string :: jsonBody[Payload]) {
@@ -30,8 +31,8 @@ object Api extends TwitterServer {
   def main(): Unit = {
     val api = (postEvent :+: postEvents).toServiceAs[Application.Json]
     val server = Http.server
-      .configured(param.Stats(statsReceiver))
-      .configured(param.Label("MockingbirdServer"))
+      .configured(Stats(statsReceiver))
+      .configured(Label("MockingbirdServer"))
       .serve(s":${port()}", api)
 
     onExit { server.close() }
