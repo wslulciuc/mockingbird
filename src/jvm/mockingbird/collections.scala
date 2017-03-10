@@ -9,7 +9,7 @@ sealed trait EventCollection {
   val schema: S
   val name: String
 
-  def addEvents(events: Seq[Event])(implicit ec: ExecutionContext): Future[Seq[Event]] =
+  def add(events: Seq[Event])(implicit ec: ExecutionContext): Future[Seq[Event]] =
     Future {
       ???
     }
