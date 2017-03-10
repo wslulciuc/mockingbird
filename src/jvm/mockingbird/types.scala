@@ -5,10 +5,10 @@ import io.circe.generic.semiauto._
 import io.finch._
 import io.finch.circe._
 
-case class Request(payload: Json)
-object Request {
-  implicit val reqDecoder: Decoder[Request] = deriveDecoder[Request]
-  implicit val reqEncoder: Encoder[Request] = deriveEncoder[Request]
+case class Payload(value: Json)
+object Payload {
+  implicit val decoder: Decoder[Payload] = deriveDecoder[Payload]
+  implicit val encoder: Encoder[Payload] = deriveEncoder[Payload]
 }
 
 case class Event(name: String)

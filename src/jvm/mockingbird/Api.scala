@@ -1,23 +1,40 @@
 package mockingbird.api
 
-import com.twitter.finagle.Http
+import com.twitter.app.Flag
+import com.twitter.finagle.http.{Request, Response}
+import com.twitter.finagle.param
+import com.twitter.finagle.stats.Counter
+import com.twitter.finagle.{Http, Service}
+import com.twitter.server.TwitterServer
 import com.twitter.util.Await
+import io.circe.generic.auto._
 import io.finch._
 import io.finch.circe._
 import mockingbird._
-import mockingbird.Request._
+import mockingbird.Payload._
 
-object Api extends App {
-  val postEvent: Endpoint[String] = post("events" :: string :: jsonBody[Request]) {
-    (collectionName: String, req: Request) =>
+object Api extends TwitterServer {
+  val port: Flag[Int] = flag("port", 8080, "TCP port for HTTP server")
+  val events: Counter = statsReceiver.counter("events")
+
+  val postEvent: Endpoint[String] = post("events" :: string :: jsonBody[Payload]) {
+    (collectionName: String, payload: Payload) =>
       EventCollection(collectionName) match {
-        case Some(eventCollection) => Ok("chirp")
+        case Some(eventCollection) => events.incr(); Ok("chirp")
         case None                  => NotFound(new Exception(s"The collection $collectionName does not exists."))
       }
   }
   val postEvents: Endpoint[String] = post("events") { Ok("chirp") }
 
-  val api    = (postEvent :+: postEvents).toServiceAs[Application.Json]
-  val server = Http.server.serve(":8080", api)
-  Await.ready(server)
+  def main(): Unit = {
+    val api = (postEvent :+: postEvents).toServiceAs[Application.Json]
+    val server = Http.server
+      .configured(param.Stats(statsReceiver))
+      .configured(param.Label("MockingbirdServer"))
+      .serve(s":${port()}", api)
+
+    onExit { server.close() }
+
+    Await.ready(adminHttpServer)
+  }
 }

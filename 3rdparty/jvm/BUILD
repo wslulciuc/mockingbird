@@ -40,3 +40,10 @@ jar_library(
     scala_jar(org='com.chuusai', name='shapeless', rev='2.3.2')
   ]
 )
+
+jar_library(
+  name='twitter-server',
+  jars=[
+    scala_jar(org='com.twitter', name='twitter-server', rev='1.27.0')
+  ]
+)
