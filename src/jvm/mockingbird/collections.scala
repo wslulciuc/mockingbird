@@ -17,6 +17,7 @@ sealed trait EventCollection {
 object EventCollection {
   def apply(name: String): Option[EventCollection] = name match {
     case SensorCollection.name => Some(SensorCollection)
+    case StatsCollection.name  => Some(StatsCollection)
     case _                     => None
   }
 }
@@ -25,4 +26,10 @@ object SensorCollection extends EventCollection {
   type S = Schema
   val schema = ???
   val name   = "sensor"
+}
+
+object StatsCollection extends EventCollection {
+  type S = Schema
+  val schema = ???
+  val name   = "stats"
 }

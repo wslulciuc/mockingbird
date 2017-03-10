@@ -14,4 +14,5 @@ object Payload {
 case class Event(name: String)
 object Event {
   object Sensor extends Event("sensor")
+  object Stats  extends Event("stats")
 }
