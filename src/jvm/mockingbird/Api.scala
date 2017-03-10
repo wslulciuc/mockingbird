@@ -1,4 +1,4 @@
-package mockingbird.api
+package mockingbird
 
 import com.twitter.app.Flag
 import com.twitter.finagle.http.{Request, Response}
