@@ -9,8 +9,7 @@ sealed trait EventCollection {
   val schema: S
   val name: String
 
-  def addEvents(events: Seq[Event])(
-      implicit ec: ExecutionContext): Future[Seq[Event]] =
+  def addEvents(events: Seq[Event])(implicit ec: ExecutionContext): Future[Seq[Event]] =
     Future {
       ???
     }
@@ -18,12 +17,12 @@ sealed trait EventCollection {
 object EventCollection {
   def apply(name: String): Option[EventCollection] = name match {
     case SensorCollection.name => Some(SensorCollection)
-    case _ => None
+    case _                     => None
   }
 }
 
 object SensorCollection extends EventCollection {
   type S = Schema
   val schema = ???
-  val name = "sensor"
+  val name   = "sensor"
 }
