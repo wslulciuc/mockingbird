@@ -1,5 +1,5 @@
 
-## mockingbird-api
+## Mockingbird API
 
 ```bash
 # Bundle source
