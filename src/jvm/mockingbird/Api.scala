@@ -29,13 +29,17 @@ object Api extends TwitterServer {
   val postEvents: Endpoint[String] = POST("events") { Ok("chirp") }
 
   def main(): Unit = {
+    log.info("Starting server...")
     val api = (postEvent :+: postEvents).toServiceAs[Application.Json]
     val server = Http.server
       .configured(Stats(statsReceiver))
       .configured(Label("MockingbirdServer"))
       .serve(s":${port()}", api)
 
-    onExit { server.close() }
+    onExit {
+      log.info("Closing server...")
+      server.close()
+    }
 
     Await.ready(adminHttpServer)
   }
