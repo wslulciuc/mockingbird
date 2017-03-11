@@ -5,14 +5,19 @@ import io.circe.generic.semiauto._
 import io.finch._
 import io.finch.circe._
 
-case class Payload(value: Json)
-object Payload {
-  implicit val decoder: Decoder[Payload] = deriveDecoder[Payload]
-  implicit val encoder: Encoder[Payload] = deriveEncoder[Payload]
+case class SensorData(sent_at: Long, value: Double)
+object SensorData {
+  implicit val decoder: Decoder[SensorData] = deriveDecoder[SensorData]
+  implicit val encoder: Encoder[SensorData] = deriveEncoder[SensorData]
 }
 
-case class Event(name: String)
-object Event {
-  object Sensor extends Event("sensor")
-  object Stats  extends Event("stats")
+sealed case class SensorType(name: String)
+object SensorType {
+  object Temperature extends SensorType("temp")
+}
+
+sealed case class Record(name: String)
+object Record {
+  object Sensor extends Record("sensor")
+  object Stats  extends Record("stats")
 }
