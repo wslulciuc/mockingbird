@@ -1,8 +1,23 @@
 package mockingbird
 
+import io.circe.Printer
+import io.circe.syntax._
+import java.nio.ByteBuffer
 import org.apache.avro.Schema
 import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
+
+case class PartitionKey(value: String)
+case class Record(key: Record.Key, bytes: ByteBuffer)
+object Record {
+  case class Key(value: String) {
+    override def toString = value
+  }
+  def unapply(enrichedData: EnrichedSensorData): Record = {
+    Record(key = Key(enrichedData.device_id.asString),
+           bytes = Printer.noSpaces.prettyByteBuffer(enrichedData.asJson))
+  }
+}
 
 sealed trait DataStream {
   type S <: Schema
@@ -14,7 +29,7 @@ sealed trait DataStream {
       ???
     }
 
-  def add(rec: Seq[Record])(implicit ec: ExecutionContext): Future[Seq[Record]] =
+  def add(recs: Seq[Record])(implicit ec: ExecutionContext): Future[Seq[Record]] =
     Future {
       ???
     }
