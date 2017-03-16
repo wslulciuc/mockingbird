@@ -13,9 +13,9 @@ object Record {
   case class Key(value: String) {
     override def toString = value
   }
-  def unapply(enrichedData: EnrichedSensorData): Record = {
-    Record(key = Key(enrichedData.device_id.asString),
-           bytes = Printer.noSpaces.prettyByteBuffer(enrichedData.asJson))
+  def apply(data: EnrichedSensorData): Record = {
+    Record(key = Key(data.device_id.asString),
+           bytes = Printer.noSpaces.prettyByteBuffer(data.asJson))
   }
 }
 

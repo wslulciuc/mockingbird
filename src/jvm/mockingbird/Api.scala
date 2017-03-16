@@ -22,17 +22,18 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object Api extends TwitterServer {
   val port: Flag[Int] = flag("port", 8080, "TCP port for HTTP server")
 
-  // POST /device/:device_id/sensor/:sensor_type/data
+  // POST /device/:device_id/sensor/:sensor/data
   val postSensorData: Endpoint[String] = POST(
       "device" :: uuid("device_id") :: "sensor" :: string("sensor_type") :: "data"
-        :: jsonBody[SensorData]) { (id: UUID, name: String, data: SensorData) =>
-    SensorType.unapply(name) match {
-      case Some(stype) =>
+        :: jsonBody[SensorData]) { (id: UUID, stype: String, data: SensorData) =>
+    stype match {
+      case SensorType(stype) =>
         FuturePool.unboundedPool {
-          SensorStream.add(Record.unapply(EnrichedSensorData(Device.Id(id), stype, data)))
+          val enriched = EnrichedSensorData(Device.Id(id), stype, data)
+          SensorStream.add(Record(data = enriched))
           Ok("chirp")
         }
-      case None => throw new ApiError.InvalidSensorType(name)
+      case _ => throw new ApiError.InvalidSensorType(name)
     }
   }.handle {
     case e: ApiError.InvalidSensorType => BadRequest(e)
